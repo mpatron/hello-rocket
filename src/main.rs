@@ -1,4 +1,5 @@
-#[macro_use] extern crate rocket;
+#[macro_use]
+extern crate rocket;
 
 #[get("/")]
 fn hello() -> &'static str {
@@ -13,8 +14,8 @@ fn rocket() -> _ {
 #[cfg(test)]
 mod test {
     use super::rocket;
-    use rocket::local::blocking::Client;
     use rocket::http::Status;
+    use rocket::local::blocking::Client;
 
     #[test]
     fn hello_world() {
