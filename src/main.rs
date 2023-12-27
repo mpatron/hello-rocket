@@ -20,7 +20,7 @@ mod test {
     #[test]
     fn hello_world() {
         let client = Client::tracked(rocket()).expect("valid rocket instance");
-        let mut response = client.get(uri!(super::hello)).dispatch();
+        let response = client.get(uri!(super::hello)).dispatch();
         assert_eq!(response.status(), Status::Ok);
         assert_eq!(response.into_string().unwrap(), "Hello, world!");
     }
