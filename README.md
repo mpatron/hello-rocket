@@ -1,7 +1,7 @@
 # Testouille de rust
 
 ![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)
-[![Build Status](https://github.com/mpatron/hello-rocket/workflows/rust/badge.svg)](https://github.com/mpatron/hello-rocket/actions)
+[![Build Status](https://github.com/mpatron/hello-rocket/workflows/Rust/badge.svg)](https://github.com/mpatron/hello-rocket/actions)
 
 ## Test
 
@@ -95,8 +95,8 @@ mpatron@mylinux:hello-rocket$
 
 ## Builder
 
-~~~txt
-https://sagiegurari.github.io/cargo-make/
-cargo install --no-default-features --force cargo-make
-cargo make my-flow
+~~~bash
+# https://sagiegurari.github.io/cargo-make/
+mpatron@mylinux:hello-rocket$ cargo install --no-default-features --force cargo-make
+mpatron@mylinux:hello-rocket$ cargo make my-flow
 ~~~
