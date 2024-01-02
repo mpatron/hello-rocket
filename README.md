@@ -1,5 +1,7 @@
 # Testouille de rust
 
+[![Build Status](https://github.com/mpatron/hello-rocket/workflows/CI/badge.svg)](https://github.com/mpatron/hello-rocket/actions)
+
 ## Test
 
 ~~~bash
