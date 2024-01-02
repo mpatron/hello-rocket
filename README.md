@@ -1,6 +1,7 @@
 # Testouille de rust
 
-[![Build Status](https://github.com/mpatron/hello-rocket/workflows/CI/badge.svg)](https://github.com/mpatron/hello-rocket/actions)
+![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)
+[![Build Status](https://github.com/mpatron/hello-rocket/workflows/rust/badge.svg)](https://github.com/mpatron/hello-rocket/actions)
 
 ## Test
 
