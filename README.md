@@ -103,3 +103,12 @@ mpatron@mylinux:hello-rocket$
 mpatron@mylinux:hello-rocket$ cargo install --no-default-features --force cargo-make
 mpatron@mylinux:hello-rocket$ cargo make my-flow
 ~~~
+
+See
+https://github.com/wpcodevo/simple-api-rocket/blob/master/src/handler.rs
+
+cargo install cargo-watch
+curl -X POST http://localhost:8000/users -H 'Content-Type: application/json' -d "{\"id\": 123,\"name\": \"toto\",\"email\": \"toto@toto.fr\"}"
+curl -X POST http://localhost:8000/users -H 'Content-Type: application/json' -d "{\"id\": 456,\"name\": \"tutu\",\"email\": \"tutu@tutu.fr\"}"
+curl -X POST http://localhost:8000/users -H 'Content-Type: application/json' -d "{\"id\": 789,\"name\": \"tata\",\"email\": \"tata@tata.fr\"}"
+curl http://localhost:8000/users -H 'Content-Type: application/json'
