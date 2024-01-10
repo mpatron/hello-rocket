@@ -7,14 +7,12 @@ use rocket::serde::json::Json;
 use rocket::serde::{Deserialize, Serialize};
 use rocket::{delete, get, post, put, State};
 
-use crate::singleton::{SINGLETON, User, };
-
-
+use crate::singleton::{User, SINGLETON};
 
 #[get("/users")]
 fn all_users() -> std::option::Option<Json<std::string::String>> {
     let singleton = SINGLETON.lock().unwrap();
-  singleton.get_data().list_user()
+    singleton.get_data().list_user()
 }
 
 #[get("/users/<id>", format = "application/json")]
@@ -50,7 +48,14 @@ fn hello() -> &'static str {
 fn rocket() -> _ {
     rocket::build().mount(
         "/",
-        routes![hello, create_user, read_user, update_user, delete_user, all_users], 
+        routes![
+            hello,
+            create_user,
+            read_user,
+            update_user,
+            delete_user,
+            all_users
+        ],
     )
 }
 
@@ -72,12 +77,21 @@ mod test {
     fn test_create_user() {
         use rocket::http::ContentType;
         let client = Client::tracked(rocket()).expect("valid rocket instance");
-        let response = client.post(uri!(super::create_user)).header(ContentType::JSON).body(r##"{
+        let response = client
+            .post(uri!(super::create_user))
+            .header(ContentType::JSON)
+            .body(
+                r##"{
             "id": "456",
             "name": "tutu",
             "email": "tutu@tutu.fr"
-        }"##).dispatch();
+        }"##,
+            )
+            .dispatch();
         assert_eq!(response.status(), Status::Ok);
-        assert_eq!(response.into_string().unwrap(), "{\"id\": 456,\"name\": \"tutu\",\"email\": \"tutu@tutu.fr\"}");
+        assert_eq!(
+            response.into_string().unwrap(),
+            "{\"id\": 456,\"name\": \"tutu\",\"email\": \"tutu@tutu.fr\"}"
+        );
     }
 }

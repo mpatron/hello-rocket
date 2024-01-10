@@ -1,9 +1,9 @@
 use lazy_static::lazy_static;
-use std::sync::Mutex;
-use std::collections::HashMap;
 use rocket::serde::json::Json;
 use rocket::serde::{Deserialize, Serialize};
 use serde_json::json;
+use std::collections::HashMap;
+use std::sync::Mutex;
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct User {
@@ -54,7 +54,6 @@ impl Users {
     }
 
     pub fn list_user(&mut self) -> Option<Json<String>> {
-
         let les_users = self.users.clone();
         let mut mylist = les_users.into_values().collect::<Vec<User>>();
         let myjson = serde_json::to_string(&mylist).unwrap();
@@ -70,11 +69,13 @@ pub struct Singleton {
 }
 
 impl Singleton {
-    fn new()->Self {
-        Singleton { users: Users::new() }
+    fn new() -> Self {
+        Singleton {
+            users: Users::new(),
+        }
     }
 
-    pub fn get_data(&self)->Users {
+    pub fn get_data(&self) -> Users {
         self.users.clone()
     }
 }
