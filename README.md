@@ -112,3 +112,4 @@ curl -X POST http://localhost:8000/users -H 'Content-Type: application/json' -d 
 curl -X POST http://localhost:8000/users -H 'Content-Type: application/json' -d "{\"id\": 456,\"name\": \"tutu\",\"email\": \"tutu@tutu.fr\"}"
 curl -X POST http://localhost:8000/users -H 'Content-Type: application/json' -d "{\"id\": 789,\"name\": \"tata\",\"email\": \"tata@tata.fr\"}"
 curl http://localhost:8000/users -H 'Content-Type: application/json'
+curl -X POST http://localhost:8000/users -H 'Content-Type: application/json' -d "{\"id\": 124,\"name\": \"toto\",\"email\": \"toto@toto.fr\"}"

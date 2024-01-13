@@ -24,9 +24,16 @@ impl Users {
         }
     }
 
-    pub fn create_user(&mut self, user: User) -> Json<User> {
-        self.users.insert(user.id, user.clone());
-        Json(user)
+    pub fn create_user(&mut self, user: User) -> Option<User> {
+        /// self.users.insert(user.id, user.clone())
+        /// let les_users = self.users.clone();
+        /// let mut inerted_user: les_users.insert(user.id, user.clone());
+        /// inerted_user
+        /// match self.users.insert(user.id, user.clone()) {
+        ///     Some(inserted_user) => Some(inserted_user.clone()),
+        ///     None => None,
+        /// }
+        self.users.insert(user.id, user.clone())
     }
 
     pub fn read_user(&self, id: u32) -> Option<Json<User>> {
