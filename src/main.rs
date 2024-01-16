@@ -105,10 +105,8 @@ mod test {
 
         let user_return = response.into_json::<crate::singleton::User>();
         match user_return {
-            Some(userr) => {
-                let uu = userr;
-                //let json_user_return = rocket::serde::json::Json(uu);
-                let json_user_return_string = json2string(uu);
+            Some(user_value) => {
+                let json_user_return_string = json2string(user_value);
                 assert_json_eq!(json_user_return_string, comp);
             }
             None => assert!(false),
