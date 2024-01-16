@@ -40,7 +40,7 @@ fn update_user(id: u32, user: Json<User>) -> Json<Option<User>> {
     Json(singleton.get_data().update_user(id, user.into_inner()))
 }
 
-#[delete("/users/<id>", format = "application/json", formatter="CompactFormatter")]
+#[delete("/users/<id>", format = "application/json"ss)]
 fn delete_user(id: u32) -> Json<Option<User>> {
     let singleton = SINGLETON.lock().unwrap();
     Json(singleton.get_data().delete_user(id))
