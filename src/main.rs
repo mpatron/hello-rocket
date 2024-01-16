@@ -3,10 +3,9 @@ pub mod singleton;
 #[macro_use]
 extern crate rocket;
 
-use rocket::serde::json::Json;
-use rocket::serde::{Deserialize, Serialize};
-use rocket::{delete, get, post, put, State};
 use rocket::http::Status;
+use rocket::serde::json::Json;
+use rocket::{delete, get, post, put};
 
 use crate::singleton::{User, SINGLETON};
 
@@ -27,11 +26,13 @@ fn create_user(user: Json<User>) -> Result<Json<User>, Status> {
     let singleton = SINGLETON.lock().unwrap();
     let user_detail = singleton.get_data().create_user(user.into_inner());
     match user_detail {
-        Some(_) => {let user_return = user_detail.unwrap();
-                    Ok(Json(user_return))},
+        Some(_) => {
+            let user_return = user_detail.unwrap();
+            Ok(Json(user_return))
+        }
         None => Err(Status::InternalServerError),
     }
-} 
+}
 
 #[put("/users/<id>", format = "application/json", data = "<user>")]
 fn update_user(id: u32, user: Json<User>) -> Option<Json<User>> {
@@ -68,7 +69,6 @@ fn rocket() -> _ {
 #[cfg(test)]
 mod test {
     use super::rocket;
-    use assert_json_diff::assert_json_include;
     use rocket::http::Status;
     use rocket::local::blocking::Client;
 
@@ -82,11 +82,9 @@ mod test {
 
     #[test]
     fn test_create_user() {
-        use rocket::http::ContentType;
-        use rocket::local::blocking::LocalResponse;
+        use crate::singleton::json2string;
         use assert_json_diff::assert_json_eq;
-        use rocket::serde::json::Json;
-        use crate::SINGLETON;
+        use rocket::http::ContentType;
 
         let client = Client::tracked(rocket()).expect("valid rocket instance");
         let response = client
@@ -105,23 +103,15 @@ mod test {
         let comp: String =
             String::from("{\"id\":456,\"name\":\"tutu\",\"email\":\"tutu@tutu.fr\"}");
 
-        let formatter = serde_json::ser::CompactFormatter;
-        let mut buf = Vec::new();
-        let mut ser = serde_json::Serializer::with_formatter(& mut buf, formatter);
-        let response: LocalResponse = response;
-        let user_return = response.into_json::<crate::singleton::User>();      
-
-        let singleton = SINGLETON.lock().unwrap();
-    
-
+        let user_return = response.into_json::<crate::singleton::User>();
         match user_return {
             Some(userr) => {
                 let uu = userr;
                 //let json_user_return = rocket::serde::json::Json(uu);
-                let json_user_return_string = singleton.get_data().json2string(uu);
+                let json_user_return_string = json2string(uu);
                 assert_json_eq!(json_user_return_string, comp);
-            },
-            None => assert!(false)
+            }
+            None => assert!(false),
         }
     }
 }

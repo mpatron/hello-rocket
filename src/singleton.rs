@@ -11,6 +11,15 @@ pub struct User {
     email: String,
 }
 
+pub fn json2string(user: User) -> String {
+    let formatter = serde_json::ser::CompactFormatter;
+    let mut buf = Vec::new();
+    let mut ser = serde_json::Serializer::with_formatter(&mut buf, formatter);
+    let user_json = Json(user);
+    user_json.serialize(&mut ser).unwrap();
+    String::from_utf8(buf).unwrap()
+}
+
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Users {
     users: HashMap<u32, User>,
@@ -21,15 +30,6 @@ impl Users {
         Self {
             users: HashMap::new(),
         }
-    }
-
-    pub fn json2string (&mut self, user: User) -> String {
-        let formatter = serde_json::ser::CompactFormatter;
-        let mut buf = Vec::new();
-        let mut ser = serde_json::Serializer::with_formatter(& mut buf, formatter);
-        let user_json = Json(user);
-        let mut user_json_string = user_json.serialize(&mut ser).unwrap();
-        String::from_utf8(buf).unwrap()
     }
 
     pub fn create_user(&mut self, user: User) -> Option<User> {
@@ -65,7 +65,7 @@ impl Users {
 
     pub fn list_user(&mut self) -> Option<Json<String>> {
         let les_users = self.users.clone();
-        let mut mylist = les_users.into_values().collect::<Vec<User>>();
+        let mylist = les_users.into_values().collect::<Vec<User>>();
         let myjson = serde_json::to_string(&mylist).unwrap();
         match self.users.values().count() {
             0 => Some(Json(myjson.clone())),
