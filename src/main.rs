@@ -10,15 +10,15 @@ use rocket::{delete, get, post, put};
 use crate::singleton::{User, SINGLETON};
 
 #[get("/users")]
-fn all_users() -> std::option::Option<Json<std::string::String>> {
+fn all_users() -> Json<Option<String>> {
     let singleton = SINGLETON.lock().unwrap();
-    singleton.get_data().list_user()
+    Json(singleton.get_data().list_user())
 }
 
 #[get("/users/<id>", format = "application/json")]
-fn read_user(id: u32) -> Option<Json<User>> {
+fn read_user(id: u32) -> Json<Option<User>> {
     let singleton = SINGLETON.lock().unwrap();
-    singleton.get_data().read_user(id)
+    Json(singleton.get_data().read_user(id))
 }
 
 #[post("/users", format = "application/json", data = "<user>")]
@@ -35,15 +35,15 @@ fn create_user(user: Json<User>) -> Result<Json<User>, Status> {
 }
 
 #[put("/users/<id>", format = "application/json", data = "<user>")]
-fn update_user(id: u32, user: Json<User>) -> Option<Json<User>> {
+fn update_user(id: u32, user: Json<User>) -> Json<Option<User>> {
     let singleton = SINGLETON.lock().unwrap();
-    singleton.get_data().update_user(id, user.into_inner())
+    Json(singleton.get_data().update_user(id, user.into_inner()))
 }
 
-#[delete("/users/<id>", format = "application/json")]
-fn delete_user(id: u32) -> Option<Json<User>> {
+#[delete("/users/<id>", format = "application/json", formatter="CompactFormatter")]
+fn delete_user(id: u32) -> Json<Option<User>> {
     let singleton = SINGLETON.lock().unwrap();
-    singleton.get_data().delete_user(id)
+    Json(singleton.get_data().delete_user(id))
 }
 
 #[get("/")]

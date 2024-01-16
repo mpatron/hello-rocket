@@ -39,36 +39,36 @@ impl Users {
         }
     }
 
-    pub fn read_user(&self, id: u32) -> Option<Json<User>> {
+    pub fn read_user(&self, id: u32) -> Option<User> {
         match self.users.get(&id) {
-            Some(user) => Some(Json(user.clone())),
+            Some(user) => Some(user.clone()),
             None => None,
         }
     }
 
-    pub fn update_user(&mut self, id: u32, user: User) -> Option<Json<User>> {
+    pub fn update_user(&mut self, id: u32, user: User) -> Option<User> {
         match self.users.get_mut(&id) {
             Some(existing_user) => {
                 *existing_user = user.clone();
-                Some(Json(existing_user.clone()))
+                Some(existing_user.clone())
             }
             None => None,
         }
     }
 
-    pub fn delete_user(&mut self, id: u32) -> Option<Json<User>> {
+    pub fn delete_user(&mut self, id: u32) -> Option<User> {
         match self.users.remove(&id) {
-            Some(user) => Some(Json(user.clone())),
+            Some(user) => Some(user.clone()),
             None => None,
         }
     }
 
-    pub fn list_user(&mut self) -> Option<Json<String>> {
+    pub fn list_user(&mut self) -> Option<String> {
         let les_users = self.users.clone();
         let mylist = les_users.into_values().collect::<Vec<User>>();
         let myjson = serde_json::to_string(&mylist).unwrap();
         match self.users.values().count() {
-            0 => Some(Json(myjson.clone())),
+            0 => Some(myjson.clone()),
             _ => None,
         }
     }
