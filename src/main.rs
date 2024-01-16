@@ -86,13 +86,15 @@ mod test {
         use rocket::local::blocking::LocalResponse;
         use assert_json_diff::assert_json_eq;
         use rocket::serde::json::Json;
+        use crate::SINGLETON;
+
         let client = Client::tracked(rocket()).expect("valid rocket instance");
         let response = client
             .post(uri!(super::create_user))
             .header(ContentType::JSON)
             .body(
                 r##"{
-            "id": "456",
+            "id": 456,
             "name": "tutu",
             "email": "tutu@tutu.fr"
         }"##,
@@ -100,16 +102,26 @@ mod test {
             .dispatch();
         assert_eq!(response.status(), Status::Ok);
 
+        let comp: String =
+            String::from("{\"id\":456,\"name\":\"tutu\",\"email\":\"tutu@tutu.fr\"}");
+
         let formatter = serde_json::ser::CompactFormatter;
         let mut buf = Vec::new();
         let mut ser = serde_json::Serializer::with_formatter(& mut buf, formatter);
         let response: LocalResponse = response;
-        let j = Json(response.into_json::<crate::singleton::User>());
+        let user_return = response.into_json::<crate::singleton::User>();      
 
-        // 
-        //let retour = response.into_string();
-        let comp: String =
-            String::from("{\"id\": 456,\"name\": \"tutu\",\"email\": \"tutu@tutu.fr\"}");
-           //assert_json_eq!(j, comp);
+        let singleton = SINGLETON.lock().unwrap();
+    
+
+        match user_return {
+            Some(userr) => {
+                let uu = userr;
+                //let json_user_return = rocket::serde::json::Json(uu);
+                let json_user_return_string = singleton.get_data().json2string(uu);
+                assert_json_eq!(json_user_return_string, comp);
+            },
+            None => assert!(false)
+        }
     }
 }

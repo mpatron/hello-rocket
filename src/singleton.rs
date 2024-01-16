@@ -1,7 +1,6 @@
 use lazy_static::lazy_static;
 use rocket::serde::json::Json;
 use rocket::serde::{Deserialize, Serialize};
-use serde_json::json;
 use std::collections::HashMap;
 use std::sync::Mutex;
 
@@ -24,16 +23,20 @@ impl Users {
         }
     }
 
+    pub fn json2string (&mut self, user: User) -> String {
+        let formatter = serde_json::ser::CompactFormatter;
+        let mut buf = Vec::new();
+        let mut ser = serde_json::Serializer::with_formatter(& mut buf, formatter);
+        let user_json = Json(user);
+        let mut user_json_string = user_json.serialize(&mut ser).unwrap();
+        String::from_utf8(buf).unwrap()
+    }
+
     pub fn create_user(&mut self, user: User) -> Option<User> {
-        /// self.users.insert(user.id, user.clone())
-        /// let les_users = self.users.clone();
-        /// let mut inerted_user: les_users.insert(user.id, user.clone());
-        /// inerted_user
-        /// match self.users.insert(user.id, user.clone()) {
-        ///     Some(inserted_user) => Some(inserted_user.clone()),
-        ///     None => None,
-        /// }
-        self.users.insert(user.id, user.clone())
+        match self.users.insert(user.id, user.clone()) {
+            Some(_) => Some(user.clone()),
+            None => Some(user.clone()),
+        }
     }
 
     pub fn read_user(&self, id: u32) -> Option<Json<User>> {
