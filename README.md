@@ -105,11 +105,14 @@ mpatron@mylinux:hello-rocket$ cargo make my-flow
 ~~~
 
 See
-https://github.com/wpcodevo/simple-api-rocket/blob/master/src/handler.rs
+[https://github.com/wpcodevo/simple-api-rocket/blob/master/src/handler.rs](https://github.com/wpcodevo/simple-api-rocket/blob/master/src/handler.rs)
 
+~~~bash
 cargo install cargo-watch
+cargo watch -x run
 curl -X POST http://localhost:8000/users -H 'Content-Type: application/json' -d "{\"id\": 123,\"name\": \"toto\",\"email\": \"toto@toto.fr\"}"
 curl -X POST http://localhost:8000/users -H 'Content-Type: application/json' -d "{\"id\": 456,\"name\": \"tutu\",\"email\": \"tutu@tutu.fr\"}"
 curl -X POST http://localhost:8000/users -H 'Content-Type: application/json' -d "{\"id\": 789,\"name\": \"tata\",\"email\": \"tata@tata.fr\"}"
 curl http://localhost:8000/users -H 'Content-Type: application/json'
-curl -X POST http://localhost:8000/users -H 'Content-Type: application/json' -d "{\"id\": 124,\"name\": \"toto\",\"email\": \"toto@toto.fr\"}"
+curl -v -X POST http://localhost:8000/users -H 'Content-Type: application/json' -d "{\"id\": 124,\"name\": \"toto\",\"email\": \"toto@toto.fr\"}"
+~~~
