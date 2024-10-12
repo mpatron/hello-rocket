@@ -9,7 +9,7 @@ repository = "https://github.com/mpatron/hello-rocket"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-rocket = { version = "0.5.0", features = ["secrets", "tls", "json"] }
+rocket = { version = "0.5.1", features = ["secrets", "tls", "json"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0.110"
 rocket_cors = { git = "https://github.com/lawliet89/rocket_cors", branch = "master" }

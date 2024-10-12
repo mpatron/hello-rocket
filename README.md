@@ -6,6 +6,41 @@
 [mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [mit-url]: https://github.com/cgbur/badge-maker/blob/master/LICENSE
 
+## Update
+
+Update rust
+
+~~~bash
+mickael@deborah:~/Documents/hello-rocket$ [[ -f $(which rustup) ]] && rustup upgrade || echo "Rust non installé"
+info: syncing channel updates for 'stable-x86_64-unknown-linux-gnu'
+info: checking for self-update
+
+  stable-x86_64-unknown-linux-gnu unchanged - rustc 1.81.0 (eeb90cda1 2024-09-04)
+
+info: cleaning up downloads & tmp directories
+~~~
+
+Update dependencies in project
+
+~~~bash
+mickael@deborah:~/Documents/hello-rocket$ cargo update
+    Updating crates.io index
+    Updating git repository `https://github.com/lawliet89/rocket_cors`
+     Locking 121 packages to latest compatible versions
+    Updating addr2line v0.21.0 -> v0.24.2
+    Removing adler v1.0.2
+      Adding adler2 v2.0.0
+    Updating aes v0.8.3 -> v0.8.4
+...
+    Updating windows_x86_64_gnullvm v0.52.0 -> v0.52.6
+    Updating windows_x86_64_msvc v0.52.0 -> v0.52.6
+    Updating winnow v0.5.30 -> v0.6.20
+      Adding zerocopy v0.7.35 (latest: v0.8.5)
+      Adding zerocopy-derive v0.7.35 (latest: v0.8.5)
+note: pass `--verbose` to see 24 unchanged dependencies behind latest
+mickael@deborah:~/Documents/hello-rocket$
+~~~
+
 ## Test
 
 ~~~bash
