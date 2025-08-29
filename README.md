@@ -156,5 +156,5 @@ Construction de l'image docker avec podman
 
 ~~~bash
 podman build -t rust-alpine-app .
-podman run --rm rust-alpine-app
+podman run -p 8000:8000 --rm rust-alpine-app
 ~~~

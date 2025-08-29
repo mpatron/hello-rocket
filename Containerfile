@@ -17,5 +17,8 @@ RUN apk add --no-cache libgcc
 
 COPY --from=builder /usr/src/app/target/release/hello-rocket /usr/local/bin/hello-rocket
 
+# 🔥 Expose le port 8000
+EXPOSE 8000
+
 CMD ["hello-rocket"]
 
