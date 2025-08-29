@@ -21,4 +21,3 @@ COPY --from=builder /usr/src/app/target/release/hello-rocket /usr/local/bin/hell
 EXPOSE 8000
 
 CMD ["hello-rocket"]
-
