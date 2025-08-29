@@ -151,3 +151,10 @@ curl -X POST http://localhost:8000/users -H 'Content-Type: application/json' -d 
 curl http://localhost:8000/users -H 'Content-Type: application/json'
 curl -v -X POST http://localhost:8000/users -H 'Content-Type: application/json' -d "{\"id\": 124,\"name\": \"toto\",\"email\": \"toto@toto.fr\"}"
 ~~~
+
+Construction de l'image docker avec podman
+
+~~~bash
+podman build -t rust-alpine-app .
+podman run --rm rust-alpine-app
+~~~
